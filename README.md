@@ -17,9 +17,26 @@ ollama pull bge-m3
 İlk model indirmeleri toplam yaklaşık 6 GB, sadece bir kez internet gerekir.
 
 ## Kullanım
-1. Bir ders PDF'ini `data/pdfs/` klasörüne koy.
-2. Testleri çalıştır (ilki indeksi oluşturur): `python -m tests.test_vector_store`
-3. Soru sor: `python ask.py`
+### Streamlit arayüzü
+```powershell
+streamlit run app.py
+```
+Arayüzden PDF yükle, **PDF'leri İşle** düğmesiyle vektör indeksini oluştur,
+ardından sohbet, özet ve quiz araçlarını kullan. Sohbet araması yalnızca o an
+seçili ve işlenmiş PDF'lerin vektör parçalarını kullanır.
+
+### Komut satırı
+Önce PDF'leri `data/pdfs/` klasörüne koyup indeksle:
+```powershell
+python index.py
+```
+Ardından soru-cevap arayüzünü başlat:
+```powershell
+python ask.py
+```
+
+Vektör araması, `src/chunker.py` içindeki parça boyutu ve örtüşme ayarlarıyla
+çalışır; Chroma veritabanı proje içindeki `data/chroma/` dizininde tutulur.
 
 ## Yapı
 - `src/pdf_loader.py`: PDF'ten sayfa sayfa metin

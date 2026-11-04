@@ -1,0 +1,69 @@
+{
+  "input": "C:\\Users\\Tu\u011fba\\Downloads\\4_Hafta_Proje_Raporu.docx",
+  "fonts_by_char_count": {
+    "Calibri": 5043
+  },
+  "direct_run_formatting_runs": 82,
+  "direct_paragraph_formatting_paragraphs": 34,
+  "heading_like_paragraphs_not_heading_style": [],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 1,
+        "text": "T.C. FIRAT \u00dcN\u0130VERS\u0130TES\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 2,
+        "text": "M\u00dcHEND\u0130SL\u0130K FAK\u00dcLTES\u0130 \u2014 B\u0130LG\u0130SAYAR M\u00dcHEND\u0130SL\u0130\u011e\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 3,
+        "text": "B\u0130LG\u0130SAYAR M\u00dcHEND\u0130SL\u0130\u011e\u0130 TASARIM DERS\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 4,
+        "text": "HAFTA 4 PROJE \u0130LERLEME RAPORU",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "text": "Proje Ba\u015fl\u0131\u011f\u0131: Ders Materyallerinden Soru Yan\u0131tlayan Yapay Zek\u00e2 Asistan\u0131",
+        "style": "Normal"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 1,
+        "run_text": "T.C. FIRAT \u00dcN\u0130VERS\u0130TES\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 2,
+        "run_text": "M\u00dcHEND\u0130SL\u0130K FAK\u00dcLTES\u0130 \u2014 B\u0130LG\u0130SAYAR M\u00dcHEND\u0130SL\u0130\u011e\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 3,
+        "run_text": "B\u0130LG\u0130SAYAR M\u00dcHEND\u0130SL\u0130\u011e\u0130 TASARIM DERS\u0130",
+        "style": "Normal"
+      },
+      {
+        "para_index": 4,
+        "run_text": "HAFTA 4 PROJE \u0130LERLEME RAPORU",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "run_text": "Proje Ba\u015fl\u0131\u011f\u0131: Ders Materyallerinden Soru Yan\u0131tlayan Yapay Zek\u00e2 Asistan\u0131",
+        "style": "Normal"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}
