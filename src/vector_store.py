@@ -1,8 +1,10 @@
+from pathlib import Path
+
 import chromadb
 import ollama
 
 EMBED_MODEL = "bge-m3"
-DB_PATH = "data/chroma"
+DB_PATH = str(Path(__file__).resolve().parents[1] / "data" / "chroma")
 COLLECTION_NAME = "ders_notlari"
 
 
@@ -30,8 +32,14 @@ def get_collection():
     )
 
 
-def build_index(chunks: list[dict], batch_size: int = 32) -> int:
-    """Chunk'ları embedding'leyip ChromaDB'ye kaydeder. Kaydedilen sayıyı döndürür."""
+def build_index(
+    chunks: list[dict], batch_size: int = 32, source_id: str | None = None
+) -> int:
+    """Chunk'ları embedding'leyip ChromaDB'ye kaydeder.
+
+    source_id verilirse her chunk'a kaynak PDF kimliği eklenir. Dönüş değeri,
+    bu çağrıda upsert edilen chunk sayısıdır; koleksiyonun toplamı değildir.
+    """
     collection = get_collection()
     for i in range(0, len(chunks), batch_size):
         batch = chunks[i : i + batch_size]
@@ -39,18 +47,29 @@ def build_index(chunks: list[dict], batch_size: int = 32) -> int:
             ids=[c["id"] for c in batch],
             documents=[c["text"] for c in batch],
             embeddings=embed_texts([c["text"] for c in batch]),
-            metadatas=[{"page": c["page"]} for c in batch],
+            metadatas=[
+                {"page": c["page"], **({"source_id": source_id} if source_id else {})}
+                for c in batch
+            ],
         )
-    return collection.count()
+    return len(chunks)
 
 
-def search(question: str, top_k: int = 3) -> list[dict]:
-    """Soruya en yakın chunk'ları döndürür: {'id', 'page', 'text', 'distance'}."""
+def search(
+    question: str, top_k: int = 3, source_ids: list[str] | None = None
+) -> list[dict]:
+    """En yakın chunk'ları döndürür; source_ids verilirse PDF kaynaklarına süzer."""
+    if source_ids is not None and not source_ids:
+        return []
+
     collection = get_collection()
-    result = collection.query(
-        query_embeddings=embed_texts([question]),
-        n_results=top_k,
-    )
+    query = {
+        "query_embeddings": embed_texts([question]),
+        "n_results": top_k,
+    }
+    if source_ids is not None:
+        query["where"] = {"source_id": {"$in": list(dict.fromkeys(source_ids))}}
+    result = collection.query(**query)
     hits = []
     for i in range(len(result["ids"][0])):
         hits.append(

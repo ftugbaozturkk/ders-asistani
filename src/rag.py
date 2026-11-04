@@ -22,9 +22,11 @@ SORU: {question}
 CEVAP:"""
 
 
-def answer_question(question: str, top_k: int = 3) -> dict:
+def answer_question(
+    question: str, top_k: int = 3, source_ids: list[str] | None = None
+) -> dict:
     """Soruyu yanıtlar. {'answer', 'sources', 'found'} döndürür."""
-    hits = search(question, top_k=top_k)
+    hits = search(question, top_k=top_k, source_ids=source_ids)
 
     # Koruma 1: en iyi sonuç bile çok uzaksa LLM'i çağırma.
     if not hits or hits[0]["distance"] > MAX_DISTANCE:
